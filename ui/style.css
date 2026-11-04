@@ -5,7 +5,7 @@ main, body {
  --line:var(--dt-colors-border-neutral-default,#dedee4);
  --accent:var(--dt-colors-text-primary-default,#1767c4);
  --muted:var(--dt-colors-text-neutral-subdued,#61616d);
- --tint:var(--dt-colors-background-primary-default,#e8f1ff);
+ --tint:color-mix(in srgb, var(--ink) 10%, var(--surface));
  color:var(--ink);
 }* {
   box-sizing: border-box;
@@ -242,3 +242,7 @@ a {
 .widgets article:hover,.widgets article:focus-within,.filters select:hover,.filters select:focus-visible,.row:hover,.row:focus-visible {border-color:#3286f2;box-shadow:0 0 0 1px #3286f2,0 3px 12px rgba(39,112,211,.14)}
 header{border-bottom:1px solid var(--line)}
 @media(prefers-reduced-motion:reduce){.widgets article,.filters select,.row{transition:none}}
+.value span[data-trend="neutral"] {color:var(--muted)}
+.value span[data-trend="positive"] {color:var(--dt-colors-text-success-default,#007242)}
+.value span[data-trend="negative"] {color:var(--dt-colors-text-critical-default,#c80026)}
+dd, button:hover, .row[aria-pressed="true"] {color:var(--ink)}

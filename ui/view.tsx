@@ -164,11 +164,13 @@ export function View({ rows, label }: { rows: Run[]; label: string }) {
             const total = (a: number[]) => a.reduce((x, y) => x + y, 0);
             const delta =
               total(trend.slice(-8, -1)) - total(trend.slice(-15, -8));
+            const trendColor = !key || delta === 0 ? "neutral" :
+              (key === "success" ? delta > 0 : delta < 0) ? "positive" : "negative";
             return (
               <article key={title}>
                 <div className="value">
                   <strong>{items.length}</strong>
-                  <span title="Diferença em tentativas entre os últimos 7 dias completos (UTC) e os 7 anteriores.">
+                  <span data-trend={trendColor} title="Diferença em tentativas entre os últimos 7 dias completos (UTC) e os 7 anteriores.">
                     {delta > 0 ? "↑" : delta < 0 ? "↓" : "→"} {Math.abs(delta)}
                     <small>vs. 7 dias anteriores</small>
                   </span>
@@ -328,4 +330,5 @@ export function View({ rows, label }: { rows: Run[]; label: string }) {
     </main>
   );
 }
+
 
