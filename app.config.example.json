@@ -1,0 +1,20 @@
+{
+  "environmentUrl": "https://YOUR-ENVIRONMENT.apps.dynatrace.com",
+  "app": {
+    "name": "B3 Pulso",
+    "id": "my.b3.pulso",
+    "version": "0.1.0",
+    "description": "Histórico de delivery por portfólio, aplicação e workflow.",
+    "scopes": [
+      {
+        "name": "storage:buckets:read",
+        "comment": "Consultar o bucket de delivery"
+      },
+      {
+        "name": "storage:events:read",
+        "comment": "Ler os eventos SDLC"
+      }
+    ],
+    "icon": "ui/icon.png"
+  }
+}

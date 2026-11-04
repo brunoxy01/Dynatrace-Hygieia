@@ -1,0 +1,25 @@
+{
+  "name": "b3-pulso-delivery",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "dt-app build",
+    "start": "dt-app dev",
+    "deploy": "dt-app deploy"
+  },
+  "dependencies": {
+    "@dynatrace-sdk/react-hooks": "^1.14.2",
+    "@dynatrace/strato-components": "^3.13.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-intl": "7.1.14",
+    "react-is": "^18.3.1"
+  },
+  "devDependencies": {
+    "dt-app": "1.20.0",
+    "typescript": "^5.9.0",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "esbuild": "^0.25.0"
+  }
+}

@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.dt-app/
+out/
+ui/local.*
+app.config.json
+
