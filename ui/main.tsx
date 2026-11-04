@@ -26,6 +26,15 @@ const query = `fetch events, from:now()-30d
 | dedup Repositorio, Execucao, Tentativa
 | sort timestamp desc
 | limit 2000`;
+const mapping = config as {
+  repo: string;
+  id: string;
+  domain?: string;
+  system?: string;
+}[];
+const catalog = new Map(
+  mapping.filter((p) => p.domain && p.system).map((p) => [p.repo, p]),
+);
 function Live() {
   const { data, error, isLoading } = useDql({ query });
   return isLoading ? (
@@ -34,7 +43,11 @@ function Live() {
     <p role="alert">Falha ao consultar eventos. {String(error)}</p>
   ) : (
     <View
-      rows={(data?.records ?? []) as unknown as Run[]}
+      rows={((data?.records ?? []) as unknown as Run[]).map((r) => ({
+        ...r,
+        domain: catalog.get(r.Repositorio)?.domain,
+        system: catalog.get(r.Repositorio)?.system,
+      }))}
       label="Grail · últimos 30 dias · até 2.000 tentativas recentes"
     />
   );
