@@ -8,18 +8,22 @@
     "deploy": "dt-app deploy"
   },
   "dependencies": {
+    "@dynatrace-sdk/client-platform-management-service": "^1.9.0",
     "@dynatrace-sdk/react-hooks": "^1.14.2",
+    "@dynatrace-sdk/units": "^1.5.0",
+    "@dynatrace-sdk/user-preferences": "^1.1.6",
     "@dynatrace/strato-components": "^3.13.0",
+    "@dynatrace/strato-design-tokens": "^1.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intl": "7.1.14",
     "react-is": "^18.3.1"
   },
   "devDependencies": {
-    "dt-app": "1.20.0",
-    "typescript": "^5.9.0",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "esbuild": "^0.25.0"
+    "dt-app": "1.20.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.9.0"
   }
 }

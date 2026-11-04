@@ -1,4 +1,4 @@
-import logo from "./icon.png";
+const logo = "./assets/portfolio.png";
 import React, { useState } from "react";
 import "./style.css";
 export type Run = {
@@ -56,7 +56,7 @@ export function View({ rows, label }: { rows: Run[]; label: string }) {
     <main>
       <header><img src={logo} alt="B3 Portfólio" className="brand"/>
         <small>B3　/　INTELIGÊNCIA DE DELIVERY</small>
-        <h1>Pulso de delivery</h1>
+        <h1>B3 Portfólio</h1>
         <p>Do portfólio à tentativa de execução.</p>
         <b>{label}</b>
       </header>
@@ -167,4 +167,6 @@ export function View({ rows, label }: { rows: Run[]; label: string }) {
     </main>
   );
 }
+
+
 

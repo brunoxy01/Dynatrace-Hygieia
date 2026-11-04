@@ -1,8 +1,8 @@
 {
   "environmentUrl": "https://YOUR-ENVIRONMENT.apps.dynatrace.com",
   "app": {
-    "name": "B3 Pulso",
-    "id": "my.b3.pulso",
+    "name": "B3 Portfólio",
+    "id": "my.b3.portfolio",
     "version": "0.1.0",
     "description": "Histórico de delivery por portfólio, aplicação e workflow.",
     "scopes": [
@@ -18,3 +18,4 @@
     "icon": "ui/icon.png"
   }
 }
+
