@@ -1,3 +1,4 @@
+import { Filter } from "./filter";
 import React, { useState } from "react";
 import { useDql } from "@dynatrace-sdk/react-hooks";
 type Event = {
@@ -23,8 +24,24 @@ const format = (n: number | null, suffix = "") =>
   n === null
     ? "Sem dados"
     : n.toLocaleString("pt-BR", { maximumFractionDigits: 2 }) + suffix;
-export function Dora() {
-  const { data, error, isLoading } = useDql({ query });
+export function Dora({
+  repositories,
+  application,
+}: { repositories?: string[]; application?: string } = {}) {
+  const { data, error, isLoading } = useDql({
+    query: repositories
+      ? query.replace(
+          "| fields time=",
+          "| filter " +
+            (repositories.length
+              ? repositories
+                  .map((r) => "vcs.repository.name == " + JSON.stringify(r))
+                  .join(" or ")
+              : "false") +
+            "\n| fields time=",
+        )
+      : query,
+  });
   const [repository, setRepository] = useState("");
   const all = (data?.records ?? []) as unknown as Event[];
   const rows = all.filter((r) => !repository || r.repo === repository);
@@ -68,7 +85,11 @@ export function Dora() {
       <nav>
         <div>
           <small>CI/CD OBSERVABILITY · MODELO ATUAL</small>
-          <h1>DORA e saúde das pipelines</h1>
+          <h1>
+            {application
+              ? "Indicadores de delivery · " + application
+              : "DORA e saúde das pipelines"}
+          </h1>
         </div>
         <a
           href="/ui/apps/community.cicd.observability/dora"
@@ -82,20 +103,14 @@ export function Dora() {
         Últimos 7 dias · todos os workflows · classificação e cálculos baseados
         na ajuda da versão 1.7.0 do CI/CD Observability.
       </p>
-      <label>
-        Repositório
-        <select
-          value={repository}
-          onChange={(e) => setRepository(e.target.value)}
-        >
-          <option value="">Todos</option>
-          {Array.from(new Set(all.map((r) => r.repo).filter(Boolean)))
-            .sort()
-            .map((r) => (
-              <option key={r}>{r}</option>
-            ))}
-        </select>
-      </label>
+      <Filter
+        label="Repositório"
+        values={Array.from(
+          new Set(all.map((r) => r.repo).filter(Boolean)),
+        ).sort()}
+        value={repository}
+        change={setRepository}
+      />{" "}
       {isLoading ? (
         <p>Consultando eventos SDLC…</p>
       ) : error ? (
@@ -211,4 +226,3 @@ export function Dora() {
     </section>
   );
 }
-

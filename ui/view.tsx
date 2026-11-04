@@ -1,3 +1,4 @@
+import { Filter } from "./filter";
 import { Dora } from "./dora";
 const logo = "./assets/portfolio.png";
 import React, { useState } from "react";
@@ -26,29 +27,6 @@ function parts(r: Run) {
   ];
 }
 const choices = (a: string[]) => Array.from(new Set(a)).sort();
-function Filter({
-  label,
-  values,
-  value,
-  change,
-}: {
-  label: string;
-  values: string[];
-  value: string;
-  change: (v: string) => void;
-}) {
-  return (
-    <label>
-      {label}
-      <select value={value} onChange={(e) => change(e.target.value)}>
-        <option value="">Todos</option>
-        {values.map((v) => (
-          <option key={v}>{v}</option>
-        ))}
-      </select>
-    </label>
-  );
-}
 export function View({ rows, label }: { rows: Run[]; label: string }) {
   const [mode, setMode] = useState("portfolio");
   const [portfolio, P] = useState(""),
@@ -263,11 +241,41 @@ export function View({ rows, label }: { rows: Run[]; label: string }) {
                 </em>
               </h2>
               <p>{metric[2]}</p>
+              {system && (
+                <section className="application-summary">
+                  <small>APLICAÇÃO SELECIONADA</small>
+                  <h1>{system}</h1>
+                  <p>
+                    {choices(apps.map((r) => r.Repositorio)).length}{" "}
+                    repositórios de delivery associados por catálogo ou
+                    nomenclatura. Os indicadores abaixo usam os eventos desses
+                    repositórios.
+                  </p>
+                  <Dora
+                    key={system + repo}
+                    repositories={choices(data.map((r) => r.Repositorio))}
+                    application={system}
+                  />
+                  <article>
+                    <h3>Saúde dos serviços</h3>
+                    <p>
+                      Vínculo com os serviços Dynatrace pendente. Para exibir
+                      taxa de erros, latência e tráfego desta aplicação,
+                      precisamos identificar seus serviços ou deployments e o
+                      ambiente correspondente.
+                    </p>
+                  </article>
+                </section>
+              )}
               {page === "detail" && (
                 <article className="chart">
                   <h3>
-                    Ocorrências por dia <em>· UTC</em>
+                    Tentativas de workflows finalizadas por dia <em>· UTC</em>
                   </h3>
+                  <p>
+                    Cada barra representa a quantidade de tentativas no dia.
+                    Passe o mouse para ver a data e o total. Período de 30 dias.
+                  </p>
                   <div className="bars">
                     {graph.map((v, i) => (
                       <div
