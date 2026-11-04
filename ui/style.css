@@ -246,3 +246,4 @@ header{border-bottom:1px solid var(--line)}
 .value span[data-trend="positive"] {color:var(--dt-colors-text-success-default,#007242)}
 .value span[data-trend="negative"] {color:var(--dt-colors-text-critical-default,#c80026)}
 dd, button:hover, .row[aria-pressed="true"] {color:var(--ink)}
+.value .trend b{font:700 34px/1 system-ui}.value .trend small{font-size:11px}.metric-heading{border-block:1px solid var(--line);margin-top:12px;padding:10px 0;display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}.widgets .metric-heading h2{border:0;padding:0;margin:0}.metric-heading summary{border:1px solid var(--line);border-radius:16px;padding:3px 8px;font-size:12px}.metric-heading details[open]{width:100%}.metric-heading details[open] summary{width:fit-content}

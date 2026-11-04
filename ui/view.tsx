@@ -104,6 +104,8 @@ export function View({ rows, label }: { rows: Run[]; label: string }) {
   function profile(items: Run[]) {
     return choices(items.map((r) => r.Repositorio)).length;
   }
+  const activity = daily(data);
+  const comparable = activity.slice(-8,-1).some(Boolean) && activity.slice(-15,-8).some(Boolean);
   const graph = daily(selected),
     max = Math.max(1, ...graph);
   return (
@@ -164,23 +166,21 @@ export function View({ rows, label }: { rows: Run[]; label: string }) {
             const total = (a: number[]) => a.reduce((x, y) => x + y, 0);
             const delta =
               total(trend.slice(-8, -1)) - total(trend.slice(-15, -8));
-            const trendColor = !key || delta === 0 ? "neutral" :
+            const trendColor = !comparable || !key || delta === 0 ? "neutral" :
               (key === "success" ? delta > 0 : delta < 0) ? "positive" : "negative";
             return (
               <article key={title}>
                 <div className="value">
                   <strong>{items.length}</strong>
-                  <span data-trend={trendColor} title="Diferença em tentativas entre os últimos 7 dias completos (UTC) e os 7 anteriores.">
-                    {delta > 0 ? "↑" : delta < 0 ? "↓" : "→"} {Math.abs(delta)}
-                    <small>vs. 7 dias anteriores</small>
+                  <span className="trend" data-trend={trendColor} title={comparable ? "Diferença entre os últimos 7 dias completos em UTC e os 7 anteriores" : "É necessária atividade de delivery no recorte em ambos os períodos."}>
+                    <b>{!comparable ? "⊖" : delta > 0 ? "↑" : delta < 0 ? "↓" : "→"}</b>
+                    <small>{!comparable ? "Sem comparação" : delta === 0 ? "Sem variação" : Math.abs(delta)+" a "+(delta>0?"mais":"menos")}</small>
+                    <small>7 dias vs. 7 anteriores</small>
                   </span>
                 </div>
-                <h2>{title}</h2>
-                <details>
-                  <summary>O que mede?</summary>
-                  {def}
-                </details>
-                <dl>
+                <div className="metric-heading"><h2>{title}</h2>
+                  <details><summary>O que mede?</summary><p>{def}</p></details>
+                </div>                <dl>
                   <dt>Repositórios com ocorrências</dt>
                   <dd>{profile(items)}</dd>
                   <dt>Participação nas tentativas</dt>
@@ -330,5 +330,6 @@ export function View({ rows, label }: { rows: Run[]; label: string }) {
     </main>
   );
 }
+
 
 
