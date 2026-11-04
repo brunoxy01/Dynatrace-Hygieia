@@ -30,19 +30,6 @@ export function Dora() {
   const rows = all.filter((r) => !repository || r.repo === repository);
   const ok = rows.filter(success),
     bad = rows.filter(failure);
-  const recoveries: number[] = [];
-  const nextSuccess = new Map<string, number>();
-  rows
-    .slice()
-    .sort((a, b) => b.time.localeCompare(a.time))
-    .forEach((r) => {
-      const key = r.pipeline || r.repo,
-        now = Date.parse(r.time),
-        next = nextSuccess.get(key);
-      if (success(r)) nextSuccess.set(key, now);
-      else if (failure(r) && next !== undefined)
-        recoveries.push((next - now) / 3600000);
-    });
   const cfr = rows.length ? (bad.length / rows.length) * 100 : null;
   const cards = [
     [
@@ -65,9 +52,9 @@ export function Dora() {
     ],
     [
       "Mean Time to Restore",
-      format(median(recoveries), " h"),
-      "Mediana do intervalo de uma falha ao próximo sucesso com o mesmo nome de pipeline, usando repositório como alternativa.",
-      String(recoveries.length) + " intervalos",
+      "Em validação",
+      "A reprodução da regra descrita na ajuda divergiu do valor do app de origem. A correlação precisa ser reconciliada antes de publicar este indicador.",
+      "Consultar valor no app de origem",
     ],
     [
       "Pipeline Reliability",
@@ -224,3 +211,4 @@ export function Dora() {
     </section>
   );
 }
+
