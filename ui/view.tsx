@@ -65,21 +65,21 @@ export function View({ rows, label }: { rows: Run[]; label: string }) {
     [
       "",
       "Tentativas finalizadas",
-      "Inclui cada tentativa finalizada dos workflows de delivery mapeados.",
+      "Cada tentativa finalizada de um workflow mapeado conta uma vez. Se o workflow falhar e for reexecutado, são duas tentativas.",
     ],
     [
       "success",
-      "Execuções com sucesso",
+      "Tentativas com sucesso",
       "Tentativas finalizadas com resultado de sucesso.",
     ],
     [
       "failure",
-      "Execuções com falha",
+      "Tentativas com falha",
       "Tentativas finalizadas com falha no workflow.",
     ],
     [
       "cancelled",
-      "Execuções canceladas",
+      "Tentativas canceladas",
       "Tentativas cujo resultado foi cancelamento.",
     ],
   ];
@@ -168,9 +168,9 @@ export function View({ rows, label }: { rows: Run[]; label: string }) {
               <article key={title}>
                 <div className="value">
                   <strong>{items.length}</strong>
-                  <span title="Variação entre as duas últimas semanas completas em UTC">
+                  <span title="Diferença em tentativas entre os últimos 7 dias completos (UTC) e os 7 anteriores.">
                     {delta > 0 ? "↑" : delta < 0 ? "↓" : "→"} {Math.abs(delta)}
-                    <small>semana / semana</small>
+                    <small>vs. 7 dias anteriores</small>
                   </span>
                 </div>
                 <h2>{title}</h2>
@@ -328,3 +328,4 @@ export function View({ rows, label }: { rows: Run[]; label: string }) {
     </main>
   );
 }
+

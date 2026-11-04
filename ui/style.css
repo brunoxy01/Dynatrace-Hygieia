@@ -1,22 +1,31 @@
-* {
+main, body {
+ --panel-base:var(--dt-colors-theme-background-shell-default,#f4f4f6);
+ --surface:var(--dt-colors-theme-background-20,#fff);
+ --ink:var(--dt-colors-theme-foreground-10,#383842);
+ --line:var(--dt-colors-border-neutral-default,#dedee4);
+ --accent:var(--dt-colors-text-primary-default,#1767c4);
+ --muted:var(--dt-colors-text-neutral-subdued,#61616d);
+ --tint:var(--dt-colors-background-primary-default,#e8f1ff);
+ color:var(--ink);
+}* {
   box-sizing: border-box;
 }
 body {
   margin: 0;
-  background: #162937;
-  color: #edf5fa;
+  background: var(--panel-base);
+  color: var(--ink);
   font: 15px system-ui;
 }
 main {
   min-height: 100vh;
   padding: 0 2.4vw 50px;
-  background: linear-gradient(145deg, #203445, #0a1e2b);
+  background: var(--panel-base);
 }
 header {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #081b2a;
+  background: var(--surface);
   margin: 0 -2.4vw;
   padding: 8px 2.4vw;
 }
@@ -28,14 +37,14 @@ header span,
 small {
   font-size: 11px;
   letter-spacing: 0.18em;
-  color: #aac2cf;
+  color: var(--muted);
 }
 nav {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 24px 0 16px;
-  border-bottom: 1px solid #385061;
+  border-bottom: 1px solid var(--line);
 }
 nav div {
   margin-right: auto;
@@ -47,21 +56,21 @@ h1 {
 }
 button,
 select {
-  color: #edf5fa;
-  border: 1px solid #526b7b;
-  background: #142a39;
-  border-radius: 22px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 5px;
   padding: 8px 16px;
   cursor: pointer;
 }
 button:hover,
 summary:hover {
-  background: #284859;
+  background: var(--tint);
 }
 button:focus-visible,
 select:focus-visible,
 summary:focus-visible {
-  outline: 3px solid #67dfff;
+  outline: 3px solid var(--accent);
 }
 .filters {
   display: flex;
@@ -82,7 +91,7 @@ aside,
 em,
 p,
 details {
-  color: #bbcfda;
+  color: var(--muted);
   font-size: 13px;
   font-style: normal;
 }
@@ -93,8 +102,8 @@ details {
   margin-top: 24px;
 }
 article {
-  border: 1px solid #324958;
-  background: #102331;
+  border: 1px solid var(--line);
+  background: var(--surface);
   border-radius: 9px;
   padding: 20px;
   margin: 14px 0;
@@ -116,16 +125,16 @@ article {
 .value span {
   text-align: right;
   font-size: 20px;
-  color: #77d9eb;
+  color: var(--accent);
 }
 .value small {
   display: block;
   letter-spacing: 0;
 }
 .widgets h2 {
-  border-block: 1px solid #344955;
+  border-block: 1px solid var(--line);
   padding: 12px 0;
-  text-transform: uppercase;
+  font-weight: 600;
   letter-spacing: 0.06em;
   font-size: 14px;
   margin: 8px 0;
@@ -142,7 +151,7 @@ dl {
 }
 dd {
   margin: 0;
-  background: #426072;
+  background: var(--tint);
   border-radius: 14px;
   text-align: center;
   padding: 2px 8px;
@@ -154,20 +163,20 @@ footer {
 }
 footer button {
   width: 50%;
-  border-radius: 20px 0 0 20px;
+  border-radius: 5px 0 0 5px;
 }
 footer button + button {
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 5px 5px 0;
 }
 .bars {
   height: 130px;
   display: flex;
   align-items: end;
   gap: 3px;
-  border-bottom: 1px solid #608093;
+  border-bottom: 1px solid var(--line);
 }
 .bars div {
-  background: #5ed0e3;
+  background: var(--accent);
   flex: 1;
 }
 .chart aside {
@@ -178,7 +187,7 @@ footer button + button {
   display: flex;
   justify-content: space-between;
   border: 0;
-  border-top: 1px solid #364e5f;
+  border-top: 1px solid var(--line);
   border-radius: 0;
   width: 100%;
   text-align: left;
@@ -195,22 +204,22 @@ table {
 td,
 th {
   padding: 10px;
-  border-bottom: 1px solid #385061;
+  border-bottom: 1px solid var(--line);
   text-align: left;
 }
 th {
-  background: #102331;
+  background: var(--surface);
   position: sticky;
   top: 0;
 }
 a {
-  color: #89dffa;
+  color: var(--accent);
 }
 [data-kind="success"] {
-  color: #88eab9;
+  color: var(--dt-colors-text-success-default,#197347);
 }
 [data-kind="failure"] {
-  color: #ff9fa6;
+  color: var(--dt-colors-text-critical-default,#ae3035);
 }
 @media (max-width: 660px) {
   nav {
@@ -227,5 +236,9 @@ a {
   margin-top: 4px;
 }
 .row[aria-pressed="true"] {
-  background: #285169;
+  background: var(--tint);
 }
+.widgets article, .filters select, .row {transition:border-color 240ms ease,box-shadow 240ms ease,background-color 240ms ease}
+.widgets article:hover,.widgets article:focus-within,.filters select:hover,.filters select:focus-visible,.row:hover,.row:focus-visible {border-color:#3286f2;box-shadow:0 0 0 1px #3286f2,0 3px 12px rgba(39,112,211,.14)}
+header{border-bottom:1px solid var(--line)}
+@media(prefers-reduced-motion:reduce){.widgets article,.filters select,.row{transition:none}}
